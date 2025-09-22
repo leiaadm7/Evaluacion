@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Visitas</title>
+</head>
+<body>
+    <h1>Visitas del día</h1>
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>RUT</th>
+            <th>Motivo</th>
+            <th>Hora Entrada</th>
+            <th>Hora Salida</th>
+        </tr>
+        {% for v in visitas %}
+        <tr>
+            <td>{{ v.nombre }}</td>
+            <td>{{ v.rut }}</td>
+            <td>{{ v.motivo }}</td>
+            <td>{{ v.hora_entrada }}</td>
+            <td>{{ v.hora_salida|default:"Pendiente" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay visitas registradas hoy</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'registrar_visita' %}">Registrar nueva visita</a>
+</body>
+</html>
