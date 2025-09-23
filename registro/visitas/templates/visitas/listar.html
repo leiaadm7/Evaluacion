@@ -1,33 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Listado de Visitas</title>
+  <meta charset="utf-8">
+  <title>Visitas Registradas</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <h1>Visitas del día</h1>
-    <table border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>RUT</th>
-            <th>Motivo</th>
-            <th>Hora Entrada</th>
-            <th>Hora Salida</th>
-        </tr>
-        {% for v in visitas %}
-        <tr>
-            <td>{{ v.nombre }}</td>
-            <td>{{ v.rut }}</td>
-            <td>{{ v.motivo }}</td>
-            <td>{{ v.hora_entrada }}</td>
-            <td>{{ v.hora_salida|default:"Pendiente" }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">No hay visitas registradas hoy</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{% url 'registrar_visita' %}">Registrar nueva visita</a>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-5xl mx-auto mt-12 p-8 bg-white rounded-xl shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-green-600">Visitas Registradas</h1>
+    <div class="mb-4 flex justify-between">
+      <a href="{% url 'visitas:inicio' %}" class="text-blue-600 hover:underline">Inicio</a>
+      <a href="{% url 'visitas:registrar_visita' %}" 
+         class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+        Registrar Nueva
+      </a>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto border-collapse border border-gray-300 text-sm">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">Nombre</th>
+            <th class="border border-gray-300 px-4 py-2">RUT</th>
+            <th class="border border-gray-300 px-4 py-2">Motivo</th>
+            <th class="border border-gray-300 px-4 py-2">Hora Entrada</th>
+            <th class="border border-gray-300 px-4 py-2">Hora Salida</th>
+            <th class="border border-gray-300 px-4 py-2">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in visitas %}
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 px-4 py-2">{{ v.nombre }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ v.rut }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ v.motivo }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ v.hora_entrada }}</td>
+            <td class="border border-gray-300 px-4 py-2">
+              {% if v.hora_salida %}
+                {{ v.hora_salida }}
+              {% else %}
+                <span class="text-red-500 font-semibold">Pendiente</span>
+              {% endif %}
+            </td>
+            <td class="border border-gray-300 px-4 py-2 text-center">
+              {% if not v.hora_salida %}
+                <a href="{% url 'visitas:marcar_salida' v.pk %}" 
+                   class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                  Marcar salida
+                </a>
+              {% else %}
+                <span class="text-gray-400">—</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center py-4 text-gray-500">No hay visitas registradas</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>

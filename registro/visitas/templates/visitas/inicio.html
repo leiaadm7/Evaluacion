@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Inicio - Sistema de Visitas</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-3xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-md text-center">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Sistema de Registro de Visitas</h1>
+    <p class="mb-6 text-lg">Bienvenido, selecciona una opción:</p>
+    <div class="flex justify-center gap-4">
+      <a href="{% url 'visitas:registrar_visita' %}" 
+         class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition">
+        Registrar Visita
+      </a>
+      <a href="{% url 'visitas:listar_visitas' %}" 
+         class="px-6 py-3 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition">
+        Ver Visitas
+      </a>
+    </div>
+  </div>
+</body>
+</html>
