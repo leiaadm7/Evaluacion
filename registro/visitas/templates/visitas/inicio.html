@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>Inicio - Sistema de Visitas</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
+{% extends 'visitas/base.html' %}
+
+{% block title %}
+  Inicio - Sistema de Visitas
+{% endblock %}
+
+{% block content %}
   <div class="max-w-3xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-md text-center">
     <h1 class="text-3xl font-bold mb-6 text-blue-600">Sistema de Registro de Visitas</h1>
     <p class="mb-6 text-lg">Bienvenido, selecciona una opción:</p>
@@ -20,5 +19,4 @@
       </a>
     </div>
   </div>
-</body>
-</html>
+{% endblock %}
