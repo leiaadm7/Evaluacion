@@ -5,16 +5,19 @@
 {% endblock %}
 
 {% block content %}
-  <div class="max-w-3xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-md text-center">
-    <h1 class="text-3xl font-bold mb-6 text-blue-600">Sistema de Registro de Visitas</h1>
-    <p class="mb-6 text-lg">Bienvenido, selecciona una opción:</p>
-    <div class="flex justify-center gap-4">
+  <div class="max-w-2xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-md text-center">
+    <h1 class="text-3xl font-bold mb-4 text-gray-800">Sistema de Registro de Visitas</h1>
+    <p class="mb-8 text-gray-600">Bienvenido, selecciona una opción:</p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
       <a href="{% url 'visitas:registrar_visita' %}" 
-         class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition">
+         class="px-4 py-2 bg-pink-400 text-white rounded-lg shadow hover:bg-pink-500 transition">
+        <i class="bi bi-pencil-square"></i>
         Registrar Visita
       </a>
       <a href="{% url 'visitas:listar_visitas' %}" 
-         class="px-6 py-3 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition">
+         class="px-4 py-2 bg-pink-400 text-white rounded-lg shadow hover:bg-pink-500 transition">
+        <i class="bi bi-person-lines-fill"></i>
         Ver Visitas
       </a>
     </div>

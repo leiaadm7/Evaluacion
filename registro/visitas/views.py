@@ -4,36 +4,41 @@ from django.contrib import messages
 from .models import Visita
 from .forms import VisitaForm
 
+# Página inicio
 def inicio(request):
     return render(request, 'visitas/inicio.html')
 
+# Registrar una nueva visita
 def registrar_visita(request):
     if request.method == 'POST':
-        form = VisitaForm(request.POST)
+        form = VisitaForm(request.POST) #Si se envió formulario
         if form.is_valid():
-            form.save()
+            form.save() #Guardar en la base de datos
             messages.success(request, "Visita registrada correctamente.")
-            return redirect('visitas:listar_visitas')
+            return redirect('visitas:listar_visitas') #Redirige a lista
     else:
         form = VisitaForm()
     return render(request, 'visitas/registrar.html', {'form': form})
 
+#Listar visitas
 def listar_visitas(request):
-    fecha = request.GET.get('fecha')
+    fecha = request.GET.get('fecha') # Filtrar por fecha
     if fecha:
         visitas = Visita.objects.filter(fecha=fecha).order_by('-hora_entrada')
     else:
         visitas = Visita.objects.all().order_by('-hora_entrada')
     return render(request, 'visitas/listar.html', {'visitas': visitas, 'fecha': fecha})
 
+# Marcar salida de una visita
 def marcar_salida(request, pk):
     visita = get_object_or_404(Visita, pk=pk)
-    if visita.hora_salida is None:
+    if visita.hora_salida is None: # Solo marcar si no tiene salida registrada
         visita.hora_salida = now()
         visita.save()
         messages.success(request, f"Salida marcada para {visita.nombre}.")
     return redirect('visitas:listar_visitas')
 
+# Eliminar una visita
 def eliminar_visita(request, pk):
     visita = get_object_or_404(Visita, pk=pk)
     visita.delete()

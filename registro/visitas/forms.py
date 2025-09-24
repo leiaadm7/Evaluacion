@@ -2,11 +2,13 @@ import re
 from django import forms
 from .models import Visita
 
+#Formulario basado en el modelo visita
 class VisitaForm(forms.ModelForm):
     class Meta:
         model = Visita
         fields = ['nombre', 'apellido', 'rut', 'motivo']
-
+        
+    # Validación personalizada para el RUT
     def clean_rut(self):
         rut = self.cleaned_data['rut'].strip()
         # Formato exacto: 8 números + guion + dígito verificador (0-9 o K)
