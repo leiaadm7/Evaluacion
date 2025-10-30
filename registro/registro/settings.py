@@ -81,10 +81,14 @@ WSGI_APPLICATION = 'registro.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
-        conn_max_age=600
-    )
+    "default" : {
+        "ENGINE": "django.db.backends.postgresql",
+        "USER": os.getenv("user"),
+        "PASSWORD": os.getenv("password"),
+        "HOST": os.getenv("host"),
+        "PORT": os.getenv("port"),
+        "DBNAME": os.getenv("dbname"),
+    }
 }
 
 
