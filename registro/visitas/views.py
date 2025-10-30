@@ -3,7 +3,8 @@ from django.utils.timezone import now
 from django.contrib import messages
 from .models import Visita
 from .forms import VisitaForm
-
+from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 # Página inicio
 def inicio(request):
@@ -25,10 +26,18 @@ def registrar_visita(request):
 def listar_visitas(request):
     fecha = request.GET.get('fecha') # Filtrar por fecha
     if fecha:
-        visitas = Visita.objects.filter(fecha=fecha).order_by('-hora_entrada')
+        visitas_list = Visita.objects.filter(fecha=fecha).order_by('-hora_entrada')
     else:
-        visitas = Visita.objects.all().order_by('-hora_entrada')
-    return render(request, 'visitas/listar.html', {'visitas': visitas, 'fecha': fecha})
+        visitas_list = Visita.objects.all().order_by('-hora_entrada')
+
+    paginator = Paginator(visitas_list, 10) #Paginator con esta lista, mostrando 10 por pagina
+    page_number = request.GET.get('page') #Vemos que numero de pagina nos piden en la url
+    visitas_page = paginator.get_page(page_number) #Solo las visitas de ESA pagina
+
+    return render(request, 'visitas/listar.html',{
+        'visitas': visitas_page, #pasamos el objeto de la pagina
+        'fecha': fecha
+    })
 
 # Marcar salida de una visita
 def marcar_salida(request, pk):
@@ -45,3 +54,29 @@ def eliminar_visita(request, pk):
     visita.delete()
     messages.success(request, f"Visita de {visita.nombre} eliminada correctamente.")
     return redirect('visitas:listar_visitas')
+
+@login_required
+def editar_visita(request, pk):
+    # busca la visita específica por su ID (pk) o muestra error 404
+    visita = get_object_or_404(Visita, pk=pk)
+
+    # Revisa si el usuario está enviando el formulario con cambios
+    if request.method == 'POST':
+        # Carga el formulario con los datos nuevos (request.POST)
+        # sobre la visita que ya existía (instance=visita)
+        form = VisitaForm(request.POST, instance=visita)
+        if form.is_valid():
+            form.save() # Guarda los cambios en la base de datos
+            messages.success(request, f"Visita de {visita.nombre} actualizada correctamente.")
+            return redirect('visitas:listar_visitas')
+
+    # Si no es POST, solo está cargando la página por primera vez
+    else:
+        # Muestra el formulario relleno con los datos de esa visita
+        form = VisitaForm(instance=visita)
+
+    # Muestra la plantilla HTML
+    return render(request, 'visitas/editar.html', {
+        'form': form,
+        'visita': visita # Le pasamos la visita para mostrar el título
+    })
