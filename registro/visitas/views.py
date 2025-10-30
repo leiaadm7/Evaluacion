@@ -55,7 +55,6 @@ def eliminar_visita(request, pk):
     messages.success(request, f"Visita de {visita.nombre} eliminada correctamente.")
     return redirect('visitas:listar_visitas')
 
-@login_required
 def editar_visita(request, pk):
     # busca la visita específica por su ID (pk) o muestra error 404
     visita = get_object_or_404(Visita, pk=pk)
