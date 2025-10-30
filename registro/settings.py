@@ -81,16 +81,15 @@ WSGI_APPLICATION = 'registro.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default" : {
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "USER": os.getenv("user"),
-        "PASSWORD": os.getenv("password"),
-        "HOST": os.getenv("host"),
-        "PORT": os.getenv("port"),
-        "DBNAME": os.getenv("dbname"),
+        "NAME": os.getenv("db_name"),
+        "USER": os.getenv("db_user"),
+        "PASSWORD": os.getenv("db_password"),
+        "HOST": os.getenv("db_host"),
+        "PORT": os.getenv("db_port")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
