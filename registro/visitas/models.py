@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 #Modelo que guarda los datos de cada visita
 class Visita(models.Model):
     nombre = models.CharField(max_length=20)#Nombre del visitante
-    apellido = models.CharField(max_length=35)#Apellido del visitante
+    apellido = models.CharField(max_length=35, blank=True, null=True)#Apellido del visitante
     rut = models.CharField(max_length=12)#RUT del visitante (identificacion chilena)
     motivo = models.TextField()#Motivo de la visita
     hora_entrada = models.DateTimeField(auto_now_add=True)#Hora de entrada que se guarda automáticamente al crear el registro

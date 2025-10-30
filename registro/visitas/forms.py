@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class VisitaForm(forms.ModelForm):
     class Meta:
         model = Visita
-        fields = ['nombre', 'apellido', 'rut', 'motivo']
+        fields = ['nombre', 'rut', 'motivo']
         
     # Validación personalizada para el RUT
     def clean_rut(self):

@@ -32,15 +32,12 @@
         <thead class="bg-pink-100 text-black-700">
           <tr>
             <th class="border border-pink-200 px-4 py-2 text-left">Nombre</th>
-            <th class="border border-pink-200 px-4 py-2 text-left">Apellido</th>
             <th class="border border-pink-200 px-4 py-2 text-left">RUT</th>
             <th class="border border-pink-200 px-4 py-2 text-left">Motivo</th>
             <th class="border border-pink-200 px-4 py-2 text-left">Hora Entrada</th>
             <th class="border border-pink-200 px-4 py-2 text-left">Hora Salida</th>
-            
             <th class="border border-pink-200 px-4 py-2 text-left">Estado</th>
             <th class="border border-pink-200 px-4 py-2 text-left">Registró</th>
-            
             <th class="border border-pink-200 px-4 py-2 text-center">Acciones</th>
           </tr>
         </thead>
@@ -48,7 +45,6 @@
           {% for v in visitas %}
           <tr class="hover:bg-pink-50 transition">
             <td class="border border-pink-100 px-4 py-2">{{ v.nombre }}</td>
-            <td class="border border-pink-100 px-4 py-2">{{ v.apellido }}</td>
             <td class="border border-pink-100 px-4 py-2">{{ v.rut }}</td>
             <td class="border border-pink-100 px-4 py-2">{{ v.motivo }}</td>
             <td class="border border-pink-100 px-4 py-2">{{ v.hora_entrada|date:"d/m/Y H:i A" }}</td>
@@ -59,7 +55,6 @@
                 <span class="text-pink-500 font-semibold">Pendiente</span>
               {% endif %}
             </td>
-
             <td class="border border-pink-100 px-4 py-2">
               {% if v.estado == 'FINALIZADA' %}
                 <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Finalizada</span>
@@ -70,7 +65,6 @@
             <td class="border border-pink-100 px-4 py-2">
               {{ v.registrado_por.username|default:'Sistema' }}
             </td>
-            
             <td class="border border-pink-100 px-4 py-2 text-center">
               <div class="flex flex-col items-center gap-2">
                 {% if not v.hora_salida %}
@@ -86,7 +80,7 @@
                   <span>Editar</span>
                 </a>
                 <a href="{% url 'visitas:eliminar_visita' v.pk %}" 
-                   onclick="return confirm('¿Estás seguro de eliminar la visita de {{ v.nombre }} {{ v.apellido }}?');"
+                   onclick="return confirm('¿Estás seguro de eliminar la visita de {{ v.nombre }}?');"
                    class="flex items-center justify-center gap-1 w-20 px-2 py-1 bg-gray-400 text-white rounded-lg shadow hover:bg-gray-500 transition">
                   <i class="bi bi-trash3-fill"></i>
                   <span>Eliminar</span>
@@ -96,8 +90,7 @@
           </tr>
           {% empty %}
           <tr>
-            <td colspan="9" class="text-center py-6 text-gray-500">
-              <i class="bi bi-exclamation-circle"></i> No hay visitas registradas
+            <td colspan="8" class="text-center py-6 text-gray-500"> <i class="bi bi-exclamation-circle"></i> No hay visitas registradas
             </td>
           </tr>
           {% endfor %}
@@ -106,7 +99,6 @@
     </div>
 
     <div class="mt-6 flex justify-center items-center gap-4">
-
       {% if visitas.has_previous %}
         <a href="?page=1{% if fecha %}&fecha={{ fecha }}{% endif %}" class="text-pink-500 hover:underline">&laquo; Primera</a>
         <a href="?page={{ visitas.previous_page_number }}{% if fecha %}&fecha={{ fecha }}{% endif %}" class="text-pink-500 hover:underline">
