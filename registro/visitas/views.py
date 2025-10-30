@@ -15,7 +15,10 @@ def registrar_visita(request):
     if request.method == 'POST':
         form = VisitaForm(request.POST) #Si se envió formulario
         if form.is_valid():
-            form.save() #Guardar en la base de datos
+            visita = form.save(commit=False) # No guardes en la BD todavía
+            if request.user.is_authenticated: # Revisa si el usuario está conectado
+                visita.registrado_por = request.user # Asigna el usuario actual
+            visita.save() #guarda en la BD
             messages.success(request, "Visita registrada correctamente.")
             return redirect('visitas:listar_visitas') #Redirige a lista
     else:
