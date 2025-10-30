@@ -1,6 +1,7 @@
 import re
 from django import forms
 from .models import Visita
+from django.core.exceptions import ValidationError
 
 #Formulario basado en el modelo visita
 class VisitaForm(forms.ModelForm):

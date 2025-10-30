@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 #Modelo que guarda los datos de cada visita
 class Visita(models.Model):
@@ -10,6 +11,12 @@ class Visita(models.Model):
     hora_entrada = models.DateTimeField(auto_now_add=True)#Hora de entrada que se guarda automáticamente al crear el registro
     hora_salida = models.DateTimeField(null=True, blank=True)#Hora de salida
     fecha = models.DateField(default=timezone.now)#Fecha de la visita automaticamente al crear el registro
+    estado = models.CharField(
+        max_length=20,
+        choices=[('EN_CURSO', 'En curso'), ('FINALIZADA', 'Finalizada')],
+        default='EN_CURSO'
+    )
+    registrado_por = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre} {self.apellido} - {self.rut}"

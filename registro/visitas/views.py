@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Visita
 from .forms import VisitaForm
 
+
 # Página inicio
 def inicio(request):
     return render(request, 'visitas/inicio.html')
