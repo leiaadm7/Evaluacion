@@ -12,7 +12,7 @@ def marcar_salida(self, request, queryset):
 # Configura cómo se verá el modelo Visita en el panel de administración
 @admin.register(Visita)
 class VisitaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'rut', 'motivo', 'hora_entrada', 'hora_salida','estado')# columnas visibles
+    list_display = ('nombre', 'rut', 'motivo', 'hora_entrada', 'hora_salida')# columnas visibles
     search_fields = ('rut', 'nombre') #permite buscar
     list_filter = ('fecha', 'estado') # filtros en el panel
     actions = [marcar_salida] #acciones masivas
