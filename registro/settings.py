@@ -45,7 +45,13 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'visitas',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,17 +87,22 @@ WSGI_APPLICATION = 'registro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.postgresql",
+#        "NAME": os.getenv("db_name"),
+#        "USER": os.getenv("db_user"),
+#        "PASSWORD": os.getenv("db_password"),
+#        "HOST": os.getenv("db_host"),
+#        "PORT": os.getenv("db_port")
+#    }
+#}
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("db_name"),
-        "USER": os.getenv("db_user"),
-        "PASSWORD": os.getenv("db_password"),
-        "HOST": os.getenv("db_host"),
-        "PORT": os.getenv("db_port")
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3",
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
