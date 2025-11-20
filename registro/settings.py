@@ -31,7 +31,9 @@ SECRET_KEY = 'admin'
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = [
-    ".onrender.com"
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1"
 ]
 
 # Application definition
