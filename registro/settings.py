@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'admin'
+SECRET_KEY = 'django-insecure-#i5p3tdp-cg+mu6_x%52_uh$zg7$9mk7-k5!yb1e)3&9t+!^23'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+DEBUG = True
 
 ALLOWED_HOSTS = [
     ".onrender.com",
@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    {
+    { 
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {

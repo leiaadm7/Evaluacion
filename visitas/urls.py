@@ -8,8 +8,7 @@ router.register(r"groups", views.GroupViewSet)
 
 app_name = 'visitas'
 urlpatterns = [
-    path("", include(router.urls)),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/", include(router.urls)),
     path('', views.inicio, name='inicio'), # Página de inicio
     path('registrar/', views.registrar_visita, name='registrar_visita'), # Página para registrar una nueva visita
     path('listar/', views.listar_visitas, name='listar_visitas'), # Página para listar visitas
