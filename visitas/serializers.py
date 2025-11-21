@@ -1,20 +1,29 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
+from .models import Visita
 
-
+class VisitaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Visita
+        fields = [
+            "url",
+            "nombre",
+            "apellido",
+            "rut",
+            "motivo",
+            "hora_entrada",
+            "hora_salida",
+            "fecha",
+            "estado",
+            "registrado_por"
+        ]
+    
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ["url", "username", "email", "groups"]
-        extra_kwargs = {
-            'url': {'view_name': 'user-detail', 'lookup_field': 'pk'},
-        }
-
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ["url", "name"]
-        extra_kwargs = {
-            'url': {'view_name': 'group-detail', 'lookup_field': 'pk'},
-        }
