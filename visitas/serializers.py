@@ -17,13 +17,29 @@ class VisitaSerializer(serializers.HyperlinkedModelSerializer):
             "estado",
             "registrado_por"
         ]
+        
+        # Se define 'view_name' con el prefijo 'visitas:' porque en urls.py usamos app_name. 
+        # Así el serializer puede encontrar la ruta correcta.
+        extra_kwargs = {
+            'url': {'view_name': 'visitas:visita-detail'},
+            'registrado_por': {'view_name': 'visitas:user-detail'}
+        }
     
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ["url", "username", "email", "groups"]
 
+        extra_kwargs = {
+            'url': {'view_name': 'visitas:user-detail'},
+            'groups': {'view_name': 'visitas:group-detail'}
+        }
+
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ["url", "name"]
+
+        extra_kwargs = {
+            'url': {'view_name': 'visitas:group-detail'}
+        }
