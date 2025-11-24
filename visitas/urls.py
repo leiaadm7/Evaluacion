@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("api/", include(router.urls)),
     path('', views.inicio, name='inicio'), # Página de inicio
+    path('cliente-api/', views.cliente_api, name='cliente_api'),
     path('registrar/', views.registrar_visita, name='registrar_visita'), # Página para registrar una nueva visita
     path('listar/', views.listar_visitas, name='listar_visitas'), # Página para listar visitas
     path('salida/<int:pk>/', views.marcar_salida, name='marcar_salida'), # Marcar salida

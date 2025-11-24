@@ -1,0 +1,113 @@
+{% extends 'visitas/base.html' %}
+
+{% block title %}
+Cliente API (JWT)
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto mt-10">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Cliente Consumidor de API</h1>
+        <p class="text-gray-600 mt-2">Interfaz que consume la API usando JavaScript y JWT</p>
+    </div>
+
+    <!--Obtener Token JWT -->
+    <div id="login-section"
+         class="bg-white p-8 rounded-xl shadow-lg border border-pink-200 mb-8">
+
+        <h2 class="text-xl font-bold mb-4 text-pink-600 flex items-center gap-2">
+            <i class="bi bi-key-fill"></i> 1. Autenticación API
+        </h2>
+
+        <p class="text-sm text-gray-500 mb-4">
+            Ingresa tus credenciales para obtener un Token.
+        </p>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Usuario:</label>
+                <input type="text" id="api-username"
+                       class="w-full px-4 py-2 border rounded-lg 
+                              focus:ring-2 focus:ring-pink-400 outline-none"
+                       placeholder="Ej: admin">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña:</label>
+                <input type="password" id="api-password"
+                       class="w-full px-4 py-2 border rounded-lg 
+                              focus:ring-2 focus:ring-pink-400 outline-none">
+            </div>
+
+            <button onclick="obtenerToken()"
+                    class="w-full py-3 bg-pink-500 text-white font-bold rounded-lg 
+                           hover:bg-pink-600 transition shadow-md">
+                Obtener Token JWT
+            </button>
+
+            <div id="login-message" class="text-center text-sm font-semibold min-h-[20px]"></div>
+        </div>
+    </div>
+
+    <!--Consumir la API usando el Token-->
+    <div id="data-section"
+         class="hidden bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <i class="bi bi-database-fill"></i> 2. Datos de Visitas
+            </h2>
+
+            <button onclick="cerrarSesion()"
+               class="text-sm text-red-500 px-3 py-1 border border-red-300 rounded 
+                      hover:bg-red-50 transition flex items-center gap-1">
+                <i class="bi bi-door-closed-fill"></i> Cerrar sesión
+            </button>
+        </div>
+
+        <!-- Token visible (abreviado) -->
+        <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <p class="text-xs font-bold text-gray-500 uppercase mb-1">
+                Token Activo (Bearer):
+            </p>
+            <p id="token-display" class="text-xs text-gray-600 font-mono break-all">---</p>
+        </div>
+
+        <div class="flex gap-3 mb-6">
+            <button onclick="cargarVisitas()"
+                class="px-5 py-2 bg-blue-600 text-white rounded-lg shadow
+                       hover:bg-blue-700 transition flex items-center gap-2">
+                <i class="bi bi-cloud-arrow-down-fill"></i> Cargar Visitas
+            </button>
+
+            <span id="loading-indicator"
+                  class="hidden text-gray-500 self-center animate-pulse">Cargando...</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-lg border border-gray-200">
+            <table class="w-full table-auto text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
+                    <tr>
+                        <th class="px-4 py-3">ID</th>
+                        <th class="px-4 py-3">Nombre</th>
+                        <th class="px-4 py-3">RUT</th>
+                        <th class="px-4 py-3">Estado</th>
+                        <th class="px-4 py-3">Fecha</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-body" class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td colspan="5" class="text-center py-8 text-gray-400">
+                            Presiona "Cargar Visitas" para consultar la API
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Archivo JS -->
+<script src="/static/rest_framework/js/cliente_api.js"></script>
+
+{% endblock %}

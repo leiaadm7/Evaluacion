@@ -13,6 +13,13 @@ from django.contrib.auth.decorators import login_required
 def inicio(request):
     return render(request, 'visitas/inicio.html')
 
+def cliente_api(request):
+    """
+    Esta vista entrega el HTML/JS del cliente consumidor.
+    La autenticación se maneja vía JWT en el frontend.
+    """
+    return render(request, 'visitas/cliente_api.html')
+
 # Registrar una nueva visita
 def registrar_visita(request):
     if request.method == 'POST':

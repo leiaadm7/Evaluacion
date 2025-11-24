@@ -6,6 +6,7 @@ class VisitaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Visita
         fields = [
+            "id",
             "url",
             "nombre",
             "apellido",
@@ -17,7 +18,7 @@ class VisitaSerializer(serializers.HyperlinkedModelSerializer):
             "estado",
             "registrado_por"
         ]
-        
+
         # Se define 'view_name' con el prefijo 'visitas:' porque en urls.py usamos app_name. 
         # Así el serializer puede encontrar la ruta correcta.
         extra_kwargs = {
